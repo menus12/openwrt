@@ -2070,6 +2070,20 @@ define Device/jdcloud_re-sp-01b
 endef
 TARGET_DEVICES += jdcloud_re-sp-01b
 
+define Device/keenetic_kn-1011
+  $(Device/nand)
+  $(Device/uimage-lzma-loader)
+  IMAGE_SIZE := 121088k
+  DEVICE_VENDOR := Keenetic
+  DEVICE_MODEL := KN-1011
+  DEVICE_PACKAGES := kmod-mt7915-firmware kmod-phy-realtek kmod-usb3 \
+	-uboot-envtools
+  IMAGES += factory.bin
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+	check-size | zyimage -d 0x801011 -v "KN-1011"
+endef
+TARGET_DEVICES += keenetic_kn-1011
+
 define Device/keenetic_kn-1910
   $(Device/nand)
   $(Device/uimage-lzma-loader)
